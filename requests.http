@@ -1,0 +1,38 @@
+### IntelliJ HTTP Client (Basic auth)
+### 1 anonymous
+GET http://localhost:8080/api/public
+
+### 2 anonymous -> 401
+GET http://localhost:8080/api/me
+
+### 3 user
+GET http://localhost:8080/api/user/profile
+Authorization: Basic user user123
+
+### 4 user -> 403
+GET http://localhost:8080/api/admin/users
+Authorization: Basic user user123
+
+### 5 manager
+GET http://localhost:8080/api/manager/reports
+Authorization: Basic manager manager123
+
+### 6 manager -> 403
+DELETE http://localhost:8080/api/admin/users/1
+Authorization: Basic manager manager123
+
+### 7 admin
+GET http://localhost:8080/api/admin/users
+Authorization: Basic admin admin123
+
+### 8 admin
+DELETE http://localhost:8080/api/admin/users/1
+Authorization: Basic admin admin123
+
+### 9 user, own data
+GET http://localhost:8080/api/users/user/data
+Authorization: Basic user user123
+
+### 10 user, foreign data -> 403
+GET http://localhost:8080/api/users/admin/data
+Authorization: Basic user user123
